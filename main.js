@@ -5,18 +5,7 @@ window.onload = function() {
     • Use ▽ button to move down.
     • Use ◁ button to move left.
     • press 〇 button and scroll to move the joystick anywhere on screen.
-        
-        
-    # Social
-        
-    • Instagram : https://instagram.com/ayush_the_dev?utm_medium=copy_link
-    
-    • Github : https://github.com/ayushkumarsingh2422005
-    
-    • Sololearn : https://www.sololearn.com/Profile/16882555/?ref=app
-    
-    • Stackoverflow : https://stackoverflow.com/users/13060979/ayush-kumar
-        `);
+    `);
         
     let audio = new Audio('https://github.com/ayushkumarsingh2422005/snake-grid-game/blob/main/music?raw=true');
     audio.autoplay = true;
