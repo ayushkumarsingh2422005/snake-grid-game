@@ -1,18 +1,65 @@
 window.onload = function() {
     alert(`
-    • Use △ button to move up.
-    • Use ▷ button to move right.
-    • Use ▽ button to move down.
-    • Use ◁ button to move left.
-    • press 〇 button and scroll to move the joystick anywhere on screen.
-    `);
+• Use △ button to move up.
+• Use ▷ button to move right.
+• Use ▽ button to move down.
+• Use ◁ button to move left.
+• press 〇 button and scroll to move the joystick anywhere on screen.
+
+# What's new :
+    • Now you can play this with map included in ground.      
+        
+# Social
+        
+    • Instagram : https://instagram.com/ayush_the_dev?utm_medium=copy_link
+    
+    • Github : https://github.com/ayushkumarsingh2422005
+    
+    • Sololearn : https://www.sololearn.com/Profile/16882555/?ref=app
+        `);
         
     let audio = new Audio('https://github.com/ayushkumarsingh2422005/snake-grid-game/blob/main/music?raw=true');
     audio.autoplay = true;
     audio.volume = 0.5;
     let food = new Audio('https://github.com/ayushkumarsingh2422005/snake-grid-game/blob/main/food?raw=true');
     let gameovers = new Audio('https://github.com/ayushkumarsingh2422005/snake-grid-game/blob/main/gameover?raw=true');
-    let moves = new Audio('https://github.com/ayushkumarsingh2422005/snake-grid-game/blob/main/move?raw=true')
+    let moves = new Audio('https://github.com/ayushkumarsingh2422005/snake-grid-game/blob/main/move?raw=true');
+    
+    const map = [
+        [9, 5],
+        [8, 6],
+        [7, 7],
+        [6, 8],
+        [6, 9],
+        [6, 10],
+        [6, 11],
+        [6, 12],
+        [6, 13],
+        [6, 14],
+        [6, 15],
+        [6, 16],
+        [6, 17],
+        [7, 18],
+        [8, 19],
+        [9, 20],
+        [17, 5],
+        [18, 6],
+        [19, 7],
+        [20, 8],
+        [20, 9],
+        [20, 10], 
+        [20, 11], 
+        [20, 12], 
+        [20, 13], 
+        [20, 14], 
+        [20, 15], 
+        [20, 16], 
+        [20, 17], 
+        [19, 18], 
+        [18, 19], 
+        [17, 20]
+    ];
+    //console.log(map)
     
     const up_btn = document.querySelector('#up');
     const right_btn = document.querySelector('#right');
@@ -33,6 +80,19 @@ window.onload = function() {
         y : 13
     }
     var inteval;
+    
+    
+    function render_map(){
+        for (i in map) {
+            let element = document.createElement('div');
+            //element.class = "map_element"
+            element.style.gridRowStart = map[i][0];
+            element.style.gridColumnStart = map[i][1];
+            element.classList.add('map_element');
+            board.appendChild(element);
+        }
+    }
+    
     document.querySelector('#strt').onclick = function() {
         audio.play();
         var inp = document.querySelectorAll('input');
@@ -130,12 +190,24 @@ window.onload = function() {
             score_board.innerHTML = 'Score : '+(++score);
             food_pos.x = getRandom();
             food_pos.y = getRandom();
+            if((JSON.stringify(map)).includes(JSON.stringify([food_pos.x, food_pos.y]))){
+                food_pos.x = 25;
+                food_pos.y = 25;
+                //console.log("chanhw");
+            }
             snake_pos.unshift({x : new_x, y : new_y});
         }
         else{
             snake_pos.unshift({x : new_x, y : new_y});
             snake_pos.pop();
         }
+        
+        if((JSON.stringify(map)).includes(JSON.stringify([snake_pos[0].x, snake_pos[0].y]))){
+            gameover();
+            //console.log(map.includes([, snake_pos[0].y]));
+            //console.log();
+        }
+        
         //console.log(JSON.stringify(snake_pos));
         board.innerHTML = '';
         for (i in snake_pos) {
@@ -150,6 +222,8 @@ window.onload = function() {
         element_f.style.gridColumnStart = food_pos.y;
         element_f.classList.add('food');
         board.appendChild(element_f);
+        render_map();
+        
     }
     function confirm_direction(direction_new) {
         if(direction == (- direction_new)){
